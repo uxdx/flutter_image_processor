@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_image_processor/functions.dart';
 
 class ScrapperGUI extends StatefulWidget {
   const ScrapperGUI({Key? key}) : super(key: key);
@@ -12,8 +13,10 @@ class ScrapperGUI extends StatefulWidget {
 }
 
 class _ScrapperGUIState extends State<ScrapperGUI> {
+  String _textfieldText = '';
   @override
   Widget build(BuildContext context) {
+    
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -40,7 +43,12 @@ class _ScrapperGUIState extends State<ScrapperGUI> {
               Row(children: [
                 Expanded(
                   child: TextField(
-                    onSubmitted: (value) async {},
+                    
+                    onChanged: ((value) {
+                      setState(() {
+                        _textfieldText = value;
+                      });
+                    }),
                     style: const TextStyle(
                       fontSize: 11,
                     ),
@@ -75,13 +83,18 @@ class _ScrapperGUIState extends State<ScrapperGUI> {
                       elevation: 0.0,
                       hoverElevation: 0.0,
                       color: Colors.white70,
+//!================================================================================================================================
                       onPressed: () async {
+                        print(_textfieldText);
                         // var result =
                             // await Process.run('python', ['lib/py/test.py']);
-                        var result = await Process.run('python', ['lib/py/scrapper.py', 'https://nav.com', '//img']);
-                        // result.stdout.forEach(print);
-                        stdout.write(result.stdout);
-                        stderr.write(result.stderr);
+                        // var processResult = await Process.run('python', ['lib/py/get_image_src.py', 'https://ssueim.com/product/%EB%A7%88%EB%A6%AC%EB%B2%A8-%EC%9C%A1%EA%B0%81%EC%A0%91%EC%8B%9C%EC%A4%914color/4836/category/612/display/1/', '//img']);
+                        // String output = processResult.stdout;
+                        // // 출력이 스페이스 두번으로 분리되어있음
+                        // final pattern = RegExp(r'\s\s');
+                        // List<String> sources = output.split(pattern);
+                        // print('sources.length: '+sources.length.toString());
+                        // await downloadImageFiles(sources);
                       },
                       child: const Icon(Icons.arrow_circle_down))
                 ],

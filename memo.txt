@@ -1,0 +1,8 @@
+Scrapper flow
+
+1. 사용자가 url을 입력 후 내려받기 버튼 클릭
+2. 내려받기 {
+    2-1) get_image_src.py를 호출 -> stdout
+    2-2) 파이썬stdout을 가공해서 이미지의 src값만으로 되어있는 sources = List<String>을 만듬
+    2-3) http 모듈을 통해 내려받음.
+}

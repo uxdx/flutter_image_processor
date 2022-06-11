@@ -44,3 +44,9 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Custom
+images/*.png
+images/*.jpg
+images/*.gif
+images/*.jpeg
