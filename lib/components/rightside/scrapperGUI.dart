@@ -1,8 +1,12 @@
+import 'dart:io';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 class ScrapperGUI extends StatefulWidget {
   const ScrapperGUI({Key? key}) : super(key: key);
 
+  void runPythonScript() {}
   @override
   State<ScrapperGUI> createState() => _ScrapperGUIState();
 }
@@ -33,27 +37,28 @@ class _ScrapperGUIState extends State<ScrapperGUI> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Row(children: const [
+              Row(children: [
                 Expanded(
                   child: TextField(
-                    style: TextStyle(
+                    onSubmitted: (value) async {},
+                    style: const TextStyle(
                       fontSize: 11,
                     ),
                     maxLines: 3,
                     cursorColor: Colors.black,
-                    decoration: InputDecoration(
-                      floatingLabelStyle: TextStyle(
-                        color: Colors.black
-                      ),
-                      isDense: true,
-                      contentPadding: EdgeInsets.only(left: 4.0,top: 8.0, right: 4.0, bottom: 4.0),
-                      focusColor: Colors.black,
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey, width: 0.0),
-                      ),
-                      border: OutlineInputBorder(),
-                      labelText: 'https://...',
-                    ),
+                    decoration: const InputDecoration(
+                        floatingLabelStyle: TextStyle(color: Colors.black),
+                        isDense: true,
+                        contentPadding: EdgeInsets.only(
+                            left: 4.0, top: 8.0, right: 4.0, bottom: 4.0),
+                        focusColor: Colors.black,
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.grey, width: 0.0),
+                        ),
+                        border: OutlineInputBorder(),
+                        labelText: 'URL',
+                        hintText: 'https://...'),
                   ),
                 ),
               ]),
@@ -61,20 +66,24 @@ class _ScrapperGUIState extends State<ScrapperGUI> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   MaterialButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25)),
-                    minWidth: 30,
-                    height: 40,
-                    highlightElevation: 0.0,
-                    focusElevation: 0.0,
-                    elevation: 0.0,
-                    hoverElevation: 0.0,
-                    color: Colors.white70,
-                    onPressed: () {
-                      print('Scrap.');
-                    },
-                    child: const Icon(Icons.arrow_circle_down)
-                  )
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25)),
+                      minWidth: 30,
+                      height: 40,
+                      highlightElevation: 0.0,
+                      focusElevation: 0.0,
+                      elevation: 0.0,
+                      hoverElevation: 0.0,
+                      color: Colors.white70,
+                      onPressed: () async {
+                        // var result =
+                            // await Process.run('python', ['lib/py/test.py']);
+                        var result = await Process.run('python', ['lib/py/scrapper.py', 'https://nav.com', '//img']);
+                        // result.stdout.forEach(print);
+                        stdout.write(result.stdout);
+                        stderr.write(result.stderr);
+                      },
+                      child: const Icon(Icons.arrow_circle_down))
                 ],
               )
             ],
