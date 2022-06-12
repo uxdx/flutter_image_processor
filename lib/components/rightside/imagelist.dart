@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_image_processor/components/rightside/imagecard.dart';
+import 'package:flutter_image_processor/models/viewimage.dart';
+import 'package:provider/provider.dart';
 
 class ImageList extends StatefulWidget {
   const ImageList({Key? key}) : super(key: key);
@@ -11,25 +13,10 @@ class ImageList extends StatefulWidget {
 }
 
 class _ImageListState extends State<ImageList> {
-  List file = [];
   List<bool> fileIsSeleted = [];
-  void _fileRefresh() async {
-    setState(() {
-      file = Directory("assets\\")
-          .listSync(); //use your folder name insted of resume.
-    });
-  }
-
-  // void updateFileIsSeleted() {
-  //   fileIsSeleted = List<bool>.filled(file.length, false);
-  //   for (var f in file) {
-      
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
-    _fileRefresh();
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -48,38 +35,38 @@ class _ImageListState extends State<ImageList> {
             ]),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-            MaterialButton(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25)),
-              minWidth: 30,
-              height: 40,
-              highlightElevation: 0.0,
-              focusElevation: 0.0,
-              elevation: 0.0,
-              hoverElevation: 0.0,
-              color: Colors.white70,
-              onPressed: (() {
-                setState(() {
-                  _fileRefresh();
-                });
-              }),
-              child: const Icon(Icons.refresh),
-            ),
-            Expanded(
-              child: Scrollbar(
-                child: ListView.builder(
-                    itemCount: file.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      String filename = file[index]
-                          .toString()
-                          .split("'")[1]
-                          .replaceAll(RegExp(r'\\'), '/');
-                      // print(filename);
-                      return ImageCard(filename, false);
-                    }),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+            Consumer<CurrentPath>(
+              builder: (_,value, child) => MaterialButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25)),
+                minWidth: 30,
+                height: 40,
+                highlightElevation: 0.0,
+                focusElevation: 0.0,
+                elevation: 0.0,
+                hoverElevation: 0.0,
+                color: Colors.white70,
+                onPressed: value.resetCurrentPath,
+                child: const Icon(Icons.refresh),
               ),
             ),
+            Expanded(
+                      child: Scrollbar(
+                        child: ListView.builder(
+                            itemCount: context.watch<CurrentPath>().files.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              String filename = context.watch<CurrentPath>().files[index]
+                                  .toString()
+                                  .split("'")[1]
+                                  .replaceAll(RegExp(r'\\'), '/');
+                              // print(filename);
+                              bool isDirectory = !filename.contains('.');
+                              return ImageCard(filename, false, isDirectory);
+                            }),
+                      ),
+                    ),
           ]),
         ),
       ),

@@ -6,10 +6,7 @@ import 'package:provider/provider.dart';
 
 
 void main() {
-  runApp(MultiProvider(
-    providers: [ChangeNotifierProvider(create: (_) => ViewImage())],
-    child: const MyApp(),
-  ));
+  runApp(const MyApp());
 }
 
 
@@ -22,10 +19,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ChangeNotifierProvider<ViewImage>(
-          create: (_) => ViewImage(), 
-          child: const Scaffold(
-            body: MainPage(),)),
+      home: const Scaffold(
+        body: MainPage(),),
     );
   }
 }
@@ -40,13 +35,19 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Row(children: const [
-        LeftSide(),
-        VerticalDivider(),
-        RightSide(),
-      ]),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ViewImage()),
+        ChangeNotifierProvider(create: (_) => CurrentPath()),
+      ],
+      child: Container(
+        color: Colors.white,
+        child: Row(children: const [
+          LeftSide(),
+          VerticalDivider(),
+          RightSide(),
+        ]),
+      ),
     );
   }
 }

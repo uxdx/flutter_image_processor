@@ -19,6 +19,9 @@ class _LeftSideState extends State<LeftSide> {
         child: Consumer<ViewImage>(
       builder: ((context, value, child) => PhotoView(
             imageProvider: FileImage(File(value.imagepath)),
+            errorBuilder: (context, object, trace) {
+              return const Icon(Icons.image);
+            },
           )),
     ));
   }

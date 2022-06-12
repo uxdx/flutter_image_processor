@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_image_processor/components/rightside/directory.dart';
 import 'package:flutter_image_processor/components/rightside/imagelist.dart';
 import 'package:flutter_image_processor/components/rightside/scrapperGUI.dart';
 
@@ -19,7 +18,6 @@ class RightSide extends StatelessWidget {
               ScrapperGUI()
           ],
           ),
-          DirectoryWrapper(),
         ],
       ),
     );
