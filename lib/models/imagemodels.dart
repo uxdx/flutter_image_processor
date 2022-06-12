@@ -15,8 +15,8 @@ class LeftSideLargeImageModel with ChangeNotifier {
 class ImageDirectoryModel with ChangeNotifier {
   String _currentPath = 'images';
   String get currentPath => _currentPath;
-  List _files = Directory('images').listSync();
-  List get files => _files;
+  List<FileSystemEntity> _files = Directory('images').listSync();
+  List<FileSystemEntity> get files => _files;
 
   void fileRefresh() {
     print('Reset');
@@ -29,12 +29,43 @@ class ImageDirectoryModel with ChangeNotifier {
     print('Change Currentpath');
     _currentPath = newPath;
     print(_currentPath);
-    fileRefresh();
+    _files = Directory(_currentPath).listSync();
+    notifyListeners();
   }
 
   void resetCurrentPath() {
     print('Reset Currentpath');
     _currentPath = 'images';
-    fileRefresh();
+    _files = Directory(_currentPath).listSync();
+    notifyListeners();
+  }
+}
+
+class SelectedImageModel with ChangeNotifier {
+  List<String> _selectedImagePathList = [];
+  List<String> get selectedImagePathList => _selectedImagePathList;
+
+  void resetList() {
+    print('List reset.');
+    _selectedImagePathList = [];
+    notifyListeners();
+  }
+
+  void add(String path) {
+    print(path + ' is selected. ');
+    _selectedImagePathList.add(path);
+    print(_selectedImagePathList);
+    notifyListeners();
+  }
+
+  void remove(String path) {
+    print(path + ' is removed. ');
+    _selectedImagePathList.remove(path);
+    print(_selectedImagePathList);
+    notifyListeners();
+  }
+
+  bool isSelected(String path) {
+    return _selectedImagePathList.contains(path);
   }
 }

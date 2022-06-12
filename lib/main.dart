@@ -38,6 +38,7 @@ class _MainPageState extends State<MainPage> {
       providers: [
         ChangeNotifierProvider(create: (_) => LeftSideLargeImageModel()),
         ChangeNotifierProvider(create: (_) => ImageDirectoryModel()),
+        ChangeNotifierProvider(create: (_) => SelectedImageModel()),
       ],
       child: Container(
         color: Colors.white,
