@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_image_processor/components/leftside.dart';
 import 'package:flutter_image_processor/components/rightside.dart';
-import 'package:flutter_image_processor/models/viewimage.dart';
+import 'package:flutter_image_processor/models/imagemodels.dart';
 import 'package:provider/provider.dart';
-
 
 void main() {
   runApp(const MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -20,7 +18,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const Scaffold(
-        body: MainPage(),),
+        body: MainPage(),
+      ),
     );
   }
 }
@@ -37,8 +36,8 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => ViewImage()),
-        ChangeNotifierProvider(create: (_) => CurrentPath()),
+        ChangeNotifierProvider(create: (_) => LeftSideLargeImageModel()),
+        ChangeNotifierProvider(create: (_) => ImageDirectoryModel()),
       ],
       child: Container(
         color: Colors.white,
@@ -51,8 +50,3 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
-
-
-
-
-

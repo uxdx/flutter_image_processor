@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-class ViewImage with ChangeNotifier {
+class LeftSideLargeImageModel with ChangeNotifier {
   String _imagepath = '';
 
   String get imagepath => _imagepath;
@@ -12,7 +12,7 @@ class ViewImage with ChangeNotifier {
   }
 }
 
-class CurrentPath with ChangeNotifier {
+class ImageDirectoryModel with ChangeNotifier {
   String _currentPath = 'images';
   String get currentPath => _currentPath;
   List _files = Directory('images').listSync();

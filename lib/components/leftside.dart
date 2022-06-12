@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_image_processor/models/viewimage.dart';
+import 'package:flutter_image_processor/models/imagemodels.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +16,7 @@ class _LeftSideState extends State<LeftSide> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: Consumer<ViewImage>(
+        child: Consumer<LeftSideLargeImageModel>(
       builder: ((context, value, child) => PhotoView(
             imageProvider: FileImage(File(value.imagepath)),
             errorBuilder: (context, object, trace) {

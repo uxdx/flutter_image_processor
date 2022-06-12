@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_image_processor/components/rightside/imagelist.dart';
+import 'package:flutter_image_processor/components/rightside/directoryview.dart';
 import 'package:flutter_image_processor/components/rightside/scrapperGUI.dart';
 
 class RightSide extends StatelessWidget {
@@ -13,10 +13,7 @@ class RightSide extends StatelessWidget {
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              ImageList(),
-              ScrapperGUI()
-          ],
+            children: const [ImageList(), ScrapperGUI()],
           ),
         ],
       ),
