@@ -14,7 +14,7 @@ Future<void> downloadImageFiles(List<String> sources) async {
         var response = await client.get(
           Uri.parse(src)
         );
-        String path = 'images/scrapped_images' + src.split('/').last;
+        String path = 'images/scrapped_images/' + src.split('/').last;
         File(path).writeAsBytesSync(response.bodyBytes);
         print('Download '+path);
         // print(response.body);
