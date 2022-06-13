@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 BoxDecoration rightsideBoxDecoration = BoxDecoration(
     color: Colors.white,
-    // border: Border.all(color: Colors.black45),
     borderRadius: const BorderRadius.all(Radius.circular(10)),
     boxShadow: [
       BoxShadow(
